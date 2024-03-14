@@ -1,0 +1,75 @@
+﻿@model IEnumerable<TicketSystem.Models.ApplicationUser>
+
+<link href="~/Content/CSS/ManageUsersCSS.css" rel="stylesheet" />
+
+<div id="outer-container">
+    <div id="middle-content">
+        <div id="title">Users</div>
+        <a id="admin-button" href="@Url.Action("Register", "Account")?id=@ViewBag.AdminsId">Manage Administrator</a>
+        <div id="table-container">
+            <table id="table" cellspacing="0">
+                <thead>
+                    <tr>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            Email
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (TicketSystem.Models.ApplicationUser user in Model)
+                    {
+                        if (user.Id != ViewBag.AdminsId)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <a href="@Url.Action("Register", "Account")?id=@user.Id">Change</a>
+                                    <a href="@Url.Action("DeleteUser", "TicketSystem")?id=@user.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $('#table').DataTable({
+                pageLength: 6,
+                "order": [0, 'asc'],
+                'columnDefs': [{
+                    'targets': [2],
+                    'orderable': false,
+                }]
+            });
+            $('#table_previous a').text("");
+            $('#table_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: rgb(24,12,36);"></i>');
+            $('#table_next a').text("");
+            $('#table_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: rgb(24,12,36);"></i>');
+        });
+        $("#table-container").on("click", function () {
+            $('#table_previous a').text("");
+            $('#table_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: rgb(24,12,36);"></i>');
+            $('#table_next a').text("");
+            $('#table_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: rgb(24,12,36);"></i>');
+        });
+
+        function goToRegisterAction(Id) {
+            location.href = "@Url.Action("Register", "Account")?id="+Id;
+        }
+    </script>
+}

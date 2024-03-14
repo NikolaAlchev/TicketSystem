@@ -1,0 +1,126 @@
+﻿@model TicketSystem.Models.Ticket
+@using TicketSystem.Models
+
+@{
+    ViewBag.Title = "CashierView";
+}
+
+<link href="~/Content/CSS/CashierViewCSS.css" rel="stylesheet" />
+
+<div id="outer-container">
+    <div id="middle-content">
+        <div id="left-section">
+            <div id="left-title">Create Ticket</div>
+            <div id="form">
+                @using (Html.BeginForm("CreateTicket", "TicketSystem", FormMethod.Post))
+                {
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="field">
+                        <p>Number of people</p>
+                        <div>
+                            <input id="NumOfPeople" type="number" name="NumOfPeople" min="1" value="1" onchange="changePrice()" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <p>Price</p>
+                        <div id="password-container">
+                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+
+                    </div>
+                    <div class="field">
+                        <p>Group</p>
+                        <div>
+                            <div class="checkbox-wrapper-6">
+                                <input class="tgl tgl-light" id="cb1-6" type="checkbox" name="Group" value="true" />
+                                <label class="tgl-btn" for="cb1-6"></label>
+                            </div>
+                            <input name="Group" type="hidden" value="false" />
+                        </div>
+
+                    </div>
+                    @Html.HiddenFor(m => m.Price)
+                    <div id="button-container">
+
+                        <input type="submit" value="Print" class="btn btn-outline-dark" id="button" />
+
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="right-section">
+            <div id="right-title">Daily Report</div>
+            <div id="table-container">
+                <table id="table" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <td>
+                                Time
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(m => m.Group)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(m => m.Price)
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in (ViewBag.DailyTickets as IEnumerable<DailyTicket>))
+                        {
+                            <tr>
+                                <td>
+                                    <span>@item.DateOfCreation.ToString("HH:mm:ss")</span>
+                                </td>
+                                <td>
+                                    @if (item.Group == true)
+                                    {
+                                        <span>Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span>No</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price) - @Html.DisplayFor(modelItem => item.NumOfPeople)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        function changePrice() {
+            var price = '@Session["price"]';
+            document.getElementById("Price").value = parseInt(price) * parseInt(document.getElementById("NumOfPeople").value);
+        }
+
+        $(document).ready(function () {
+            dataTable = $("#table").DataTable({
+                pageLength: 6,
+                "order": [0, 'desc'],
+                'columnDefs': [{
+                    'targets': [1],
+                    'orderable': false,
+                }]
+            });
+            $('#table_previous a').text("");
+            $('#table_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: rgb(24,12,36);"></i>');
+            $('#table_next a').text("");
+            $('#table_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: rgb(24,12,36);"></i>');
+        });
+        $("#table-container").on("click", function () {
+            $('#table_previous a').text("");
+            $('#table_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: rgb(24,12,36);"></i>');
+            $('#table_next a').text("");
+            $('#table_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: rgb(24,12,36);"></i>');
+        });
+    </script>
+}

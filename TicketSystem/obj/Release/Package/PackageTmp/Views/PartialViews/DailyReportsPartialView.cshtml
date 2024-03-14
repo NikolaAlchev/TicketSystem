@@ -1,0 +1,24 @@
+﻿
+<div id="title-reports">Дневни Извештаи</div>
+<div id="date-container">
+    <div id="selected-date">@ViewBag.CurrentDate</div>
+    <span class="datepicker-toggle">
+        <span class="datepicker-toggle-button"><i class="fa-solid fa-calendar-days" style="color: #a39b9b;"></i></span>
+        <input type="date" class="datepicker-input" id="calendar" onchange="changeDateText()" value="@ViewBag.CurrentDate">
+    </span>
+</div>
+
+<div id="table-container">
+    <table id="table-reports" cellspacing="0">
+        <thead>
+            <tr>
+                <td>Датум</td>
+                <td>Цена</td>
+                <td>Група</td>
+                <td>Бр. на луѓе</td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

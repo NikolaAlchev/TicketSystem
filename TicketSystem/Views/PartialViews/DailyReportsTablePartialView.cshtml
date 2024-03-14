@@ -1,0 +1,34 @@
+﻿
+@model IEnumerable<TicketSystem.Models.Ticket>
+
+<table id="table-reports" cellspacing="0">
+    <thead>
+        <tr>
+            <td>Date</td>
+            <td>Price</td>
+            <td>Group</td>
+            <td>People</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TicketSystem.Models.Ticket item in Model)
+        {
+            <tr>
+                <td>@item.DateOfCreation.ToString("HH:mm:ss")</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>
+                    @if (item.Group == true)
+                    {
+                        <span>Yes</span>
+                    }
+                    else
+                    {
+                        <span>No</span>
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.NumOfPeople)</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

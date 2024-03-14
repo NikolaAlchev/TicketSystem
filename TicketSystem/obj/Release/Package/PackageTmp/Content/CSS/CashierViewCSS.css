@@ -1,0 +1,350 @@
+﻿#outer-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    color: #A39B9B;
+}
+
+#middle-content {
+    width: 55%;
+    height: 70%;
+    box-shadow: black 0 0 70px;
+    background-color: rgba(255,255,255,0.85);
+    display: flex;
+}
+
+#left-section, #right-section {
+    height: 100%;
+}
+
+#left-section {
+    width: 45%;
+    border-right: 5px #A39B9B solid;
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+#left-title, #right-title {
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    top: 70px;
+    font-size: 40px;
+    font-weight: 500;
+    text-align: center;
+}
+
+#form {
+    width: 100%;
+    height: 70%;
+    margin-top: 130px;
+    padding: 20px 30px;
+}
+
+.field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+p {
+    margin: 0;
+    font-size: 27px;
+}
+
+input[type=text], input[type=number] {
+    background-color: #A39B9B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 50px;
+    text-align: center;
+    font-size: 25px;
+}
+
+input[type=text] {
+    width: 120px;
+}
+
+input[type="text"]:disabled {
+    background-color: #A39B9B;
+}
+
+input[type=number] {
+    width: 100px;
+}
+
+
+.checkbox-wrapper-6 .tgl {
+    display: none;
+}
+
+    .checkbox-wrapper-6 .tgl,
+    .checkbox-wrapper-6 .tgl:after,
+    .checkbox-wrapper-6 .tgl:before,
+    .checkbox-wrapper-6 .tgl *,
+    .checkbox-wrapper-6 .tgl *:after,
+    .checkbox-wrapper-6 .tgl *:before,
+    .checkbox-wrapper-6 .tgl + .tgl-btn {
+        box-sizing: border-box;
+    }
+
+        .checkbox-wrapper-6 .tgl::-moz-selection,
+        .checkbox-wrapper-6 .tgl:after::-moz-selection,
+        .checkbox-wrapper-6 .tgl:before::-moz-selection,
+        .checkbox-wrapper-6 .tgl *::-moz-selection,
+        .checkbox-wrapper-6 .tgl *:after::-moz-selection,
+        .checkbox-wrapper-6 .tgl *:before::-moz-selection,
+        .checkbox-wrapper-6 .tgl + .tgl-btn::-moz-selection,
+        .checkbox-wrapper-6 .tgl::selection,
+        .checkbox-wrapper-6 .tgl:after::selection,
+        .checkbox-wrapper-6 .tgl:before::selection,
+        .checkbox-wrapper-6 .tgl *::selection,
+        .checkbox-wrapper-6 .tgl *:after::selection,
+        .checkbox-wrapper-6 .tgl *:before::selection,
+        .checkbox-wrapper-6 .tgl + .tgl-btn::selection {
+            background: none;
+        }
+
+        .checkbox-wrapper-6 .tgl + .tgl-btn {
+            outline: 0;
+            display: block;
+            width: 4em;
+            height: 2em;
+            position: relative;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .checkbox-wrapper-6 .tgl + .tgl-btn:after,
+            .checkbox-wrapper-6 .tgl + .tgl-btn:before {
+                position: relative;
+                display: block;
+                content: "";
+                width: 50%;
+                height: 100%;
+            }
+
+            .checkbox-wrapper-6 .tgl + .tgl-btn:after {
+                left: 0;
+            }
+
+            .checkbox-wrapper-6 .tgl + .tgl-btn:before {
+                display: none;
+            }
+
+        .checkbox-wrapper-6 .tgl:checked + .tgl-btn:after {
+            left: 50%;
+        }
+
+.checkbox-wrapper-6 .tgl-light + .tgl-btn {
+    background: #A39B9B;
+    border-radius: 2em;
+    padding: 2px;
+    transition: all 0.4s ease;
+}
+
+    .checkbox-wrapper-6 .tgl-light + .tgl-btn:after {
+        border-radius: 50%;
+        background: #fff;
+        transition: all 0.2s ease;
+    }
+
+.checkbox-wrapper-6 .tgl-light:checked + .tgl-btn {
+    background: #9FD6AE;
+}
+
+#button-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 70px;
+}
+
+#button {
+    background-color: #A39B9B;
+    border: none;
+    height: 50px;
+    width: 150px;
+    font-size: 22px;
+    color: white;
+    transition: 0.33s ease;
+}
+
+    #button:hover {
+        background-color: #412d28;
+    }
+
+#right-section {
+    width: 55%;
+    position: relative;
+    display: grid;
+    place-items: start;
+}
+
+#table-container {
+    width: 100%;
+    height: 50%;
+    margin-top: 130px;
+    padding: 30px 30px 30px 0;
+    font-size: 20px;
+}
+
+#table {
+    padding-right: 80px;
+}
+
+#table_wrapper {
+    position: relative;
+}
+
+.pagination {
+    position: absolute;
+    top: 32px;
+    right: 0;
+    font-size: 30px;
+    transition: 0.33s ease;
+}
+
+#table_previous i:hover, #table_next i:hover {
+    color: #beb9b9 !important;
+}
+
+#table_previous a {
+    margin-right: 5px;
+}
+
+#table_filter, #table_length, #table_info {
+    display: none;
+}
+
+td {
+    text-align: center;
+    padding: 10px 10px;
+}
+
+tbody td {
+    border-right: 3px solid #A39B9B;
+}
+
+thead td:nth-child(3) {
+    border-right: 3px solid #A39B9B;
+}
+
+thead td {
+    border-bottom: 3px solid #A39B9B;
+}
+
+tbody td:nth-child(3) {
+    border-right: none;
+}
+
+td:nth-child(1) {
+    width: 20%;
+}
+
+td:nth-child(2) {
+    width: 5%;
+}
+
+td:nth-child(3) {
+    width: 25%;
+}
+
+tbody tr:first-child td:nth-child(3) {
+    border-right: 3px solid #A39B9B;
+}
+
+.pagination li:not(:first-child):not(:last-child) {
+    display: none;
+}
+
+#logo-2 {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    opacity: 0.8;
+}
+
+.sorting::after, .sorting::before, .sorting_asc::after, .sorting_asc::before, .sorting_desc::after, .sorting_desc::before {
+    font-size: 1.2em;
+    top: 7px;
+}
+
+.sorting::before, .sorting_asc::before, .sorting_desc::before {
+    padding-right: 3px;
+}
+
+@media (max-width: 1600px) {
+    #left-title, #right-title {
+        height: 50px;
+        top: 50px;
+        font-size: 30px;
+    }
+
+    #form {
+        margin-top: 70px;
+    }
+
+    p {
+        font-size: 22px;
+    }
+
+    .field {
+        margin-bottom: 30px;
+    }
+
+    input[type=text], input[type=number] {
+        height: 40px;
+        font-size: 22px;
+    }
+
+    input[type=text] {
+        width: 100px;
+    }
+
+    input[type=number] {
+        width: 80px;
+    }
+
+    #button {
+        height: 40px;
+        width: 130px;
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    #table-container {
+        margin-top: 80px;
+        padding: 30px 30px 30px 0;
+        font-size: 16px;
+    }
+
+    #logo-2 {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+    }
+
+    #left-section {
+        width: 40%;
+    }
+
+    #right-section {
+        width: 60%;
+    }
+
+    .pagination {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        font-size: 28px;
+    }
+}

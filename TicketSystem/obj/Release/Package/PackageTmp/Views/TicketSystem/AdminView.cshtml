@@ -1,0 +1,388 @@
+﻿
+@{
+    ViewBag.Title = "AdminView";
+}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
+<link href="~/Content/CSS/AdminViewCSS.css" rel="stylesheet" />
+
+<div id="outer-container">
+    <div id="middle-content">
+        <div id="content">
+
+        </div>
+        <div id="users-container" onclick="resetButtons()">
+            Корисници
+        </div>
+        <div id="reports-container" onclick="moveButtons()">
+            Извештаи
+        </div>
+        <div id="daily-container" class="disappear">
+            Дневен
+        </div>
+        <div id="monthly-container" class="disappear">
+            Месечен
+        </div>
+        <div id="yearly-container" class="disappear">
+            Годишен
+        </div>
+        <div id="price-container" class="disappear">
+            Цена
+        </div>
+        <img id="logo-2" src="~/Images/Logo2.png" alt="logo" />
+
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        var users = document.getElementById("users-container");
+        var reports = document.getElementById("reports-container");
+        var daily = document.getElementById("daily-container");
+        var monthly = document.getElementById("monthly-container");
+        var yearly = document.getElementById("yearly-container");
+        var price = document.getElementById("price-container");
+        let flag = true;
+
+        function goToActionAddUser() {
+            location.href = '@Url.Action("Register","Account")';
+        }
+        function goToActionManageUsers() {
+            location.href = '@Url.Action("ManageUsers","TicketSystem")';
+        }
+        function resetButtons() {
+            users.style.top = "25%";
+            users.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+            flag = true;
+            reports.style.top = "50%";
+            reports.style.backgroundColor = "rgba(200, 200, 200, 0.9)";
+            daily.classList.add("disappear");
+            monthly.classList.add("disappear");
+            yearly.classList.add("disappear");
+            price.classList.add("disappear");
+        }
+
+        function moveButtons() {
+            if (window.matchMedia("(max-width: 1600px)").matches) {
+                users.style.top = "8%";
+                reports.style.top = "24%";
+            } else {
+                users.style.top = "10%";
+                reports.style.top = "25%";
+            }
+
+            users.style.backgroundColor = "rgba(200, 200, 200, 0.9)";
+            flag = false;
+            reports.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+            daily.classList.remove("disappear");
+            monthly.classList.remove("disappear");
+            yearly.classList.remove("disappear");
+            price.classList.remove("disappear");
+
+        }
+
+        users.addEventListener('mouseover', () => {
+            users.style.backgroundColor = "rgba(255, 255, 255, 1)";
+        });
+
+        users.addEventListener('mouseout', () => {
+            if (flag) {
+                users.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+            } else {
+                users.style.backgroundColor = 'rgba(200, 200, 200, 0.9)';
+            }
+        });
+
+        reports.addEventListener('mouseover', () => {
+            reports.style.backgroundColor = "rgba(255, 255, 255, 1)";
+        });
+
+        reports.addEventListener('mouseout', () => {
+            if (flag) {
+                reports.style.backgroundColor = 'rgba(200, 200, 200, 0.9)';
+            } else {
+                reports.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+            }
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "TicketSystem/DisplayUsers",
+                method: "GET",
+                success: function (response) {
+                    $("#content").html(response);
+                }
+            });
+        });
+
+        $(document).on('click', '#users-container', function () {
+            $.ajax({
+                url: "TicketSystem/DisplayUsers",
+                method: "GET",
+                success: function (response) {
+                    $("#content").html(response);
+                }
+            });
+        });
+
+        $(document).on('click', '#reports-container', function () {
+            $.ajax({
+                url: "TicketSystem/DisplayDailyReports",
+                method: "GET",
+                success: function (response) {
+                    $("#content").html(response);
+                    $("#table-reports").DataTable({
+                        pageLength: 7,
+                        "order": [0, 'desc'],
+                        'columnDefs': [{
+                            'targets': [2],
+                            'orderable': false,
+                        }]
+                    });
+
+                    $('#table-reports_previous a').text("");
+                    $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                    $('#table-reports_next a').text("");
+                    $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+
+                    $("#table-container").on("click", function () {
+                        $('#table-reports_previous a').text("");
+                        $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                        $('#table-reports_next a').text("");
+                        $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+                    });
+                    changeDateText();
+                }
+            });
+        });
+        
+        $(document).on('click', '#daily-container', function () { 
+            
+            $.ajax({
+                url: "TicketSystem/DisplayDailyReports",
+                method: "GET",
+                success: function (response) {
+                    $("#content").html(response);
+                    $("#table-reports").DataTable({
+                        pageLength: 7,
+                        "order": [0, 'desc'],
+                        'columnDefs': [{
+                            'targets': [2],
+                            'orderable': false,
+                        }]
+                    });
+
+                    $('#table-reports_previous a').text("");
+                    $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                    $('#table-reports_next a').text("");
+                    $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+
+                    $("#table-container").on("click", function () {
+                        $('#table-reports_previous a').text("");
+                        $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                        $('#table-reports_next a').text("");
+                        $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+                    });
+                    changeDateText();
+                }
+            });
+            
+        });      
+
+        $(document).on('click', '#monthly-container', function () {
+            $.ajax({
+                url: "TicketSystem/DisplayMonthlyReports",
+                method: "GET",
+                success: function (response) {
+                    $("#content").html(response);
+                    $("#table-reports").DataTable({
+                        pageLength: 7,
+                        "order": [0, 'desc'],
+                        'columnDefs': [{
+                            'targets': [2],
+                            'orderable': false,
+                        }]
+                    });
+
+                    $('#table-reports_previous a').text("");
+                    $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                    $('#table-reports_next a').text("");
+                    $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+
+                    $("#table-container").on("click", function () {
+                        $('#table-reports_previous a').text("");
+                        $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                        $('#table-reports_next a').text("");
+                        $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+                    });
+                    loadMonthlyTable();
+                }
+            });
+        });
+
+        $(document).on('click', '#yearly-container', function () {
+            $.ajax({
+                url: "TicketSystem/DisplayYearlyReports",
+                method: "GET",
+                success: function (response) {
+                    $("#content").html(response);
+                    $("#table-reports").DataTable({
+                        pageLength: 7,
+                        "order": [0, 'desc'],
+                        'columnDefs': [{
+                            'targets': [2],
+                            'orderable': false,
+                        }]
+                    });
+
+                    $('#table-reports_previous a').text("");
+                    $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                    $('#table-reports_next a').text("");
+                    $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+
+                    $("#table-container").on("click", function () {
+                        $('#table-reports_previous a').text("");
+                        $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                        $('#table-reports_next a').text("");
+                        $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+                    });
+                    loadYearlyTable();
+                }
+            });
+        });
+
+        $(document).on('click', '#price-container', function () {
+            $.ajax({
+                url: "TicketSystem/ChangeCurrentPrice",
+                method: "GET",
+                success: function (response) {
+                    $("#content").html(response);
+                }
+            });
+        });
+
+        function changeDateText() {
+            var val = document.getElementById("calendar").value;
+            document.getElementById("selected-date").textContent = val;
+            $.ajax({
+                url: "TicketSystem/DisplayDailyReportsTable",
+                method: "GET",
+                data: {
+                    date: val
+                },
+                success: function (response) {
+                    $("#table-container").html(response);
+                    $("#table-reports").DataTable({
+                        pageLength: 7,
+                        "order": [0, 'desc'],
+                        'columnDefs': [{
+                            'targets': [2],
+                            'orderable': false,
+                        }]
+                    });
+
+                    $('#table-reports_previous a').text("");
+                    $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                    $('#table-reports_next a').text("");
+                    $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+
+                    $("#table-container").on("click", function () {
+                        $('#table-reports_previous a').text("");
+                        $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                        $('#table-reports_next a').text("");
+                        $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+                    });
+                }
+            });
+        }
+        function increaseNumberInput() {
+            var x = document.getElementById("number-input")
+            x.value = parseInt(x.value) + 1;
+            loadMonthlyTable();
+        }
+        function decreaseNumberInput() {
+            var x = document.getElementById("number-input")
+            x.value = parseInt(x.value) - 1;
+            loadMonthlyTable();
+        }
+
+        function loadMonthlyTable() {
+            var val = document.getElementById("number-input").value;
+            $.ajax({
+                url: "TicketSystem/DisplayMonthlyReportsTable",
+                method: "GET",
+                data: {
+                    year: val
+                },
+                success: function (response) {
+                    $("#table-container").html(response);
+                    $("#table-reports").DataTable({
+                        pageLength: 7,
+                        "order": [0, 'desc'],
+                        'columnDefs': [{
+                            'targets': [2],
+                            'orderable': false,
+                        }]
+                    });
+
+                    $('#table-reports_previous a').text("");
+                    $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                    $('#table-reports_next a').text("");
+                    $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+
+                    $("#table-container").on("click", function () {
+                        $('#table-reports_previous a').text("");
+                        $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                        $('#table-reports_next a').text("");
+                        $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+                    });
+                }
+            });
+        }
+
+        function loadYearlyTable() {
+            $.ajax({
+                url: "TicketSystem/DisplayYearlyReportsTable",
+                method: "GET",
+                success: function (response) {
+                    $("#table-container").html(response);
+                    $("#table-reports").DataTable({
+                        pageLength: 7,
+                        "order": [0, 'desc'],
+                        'columnDefs': [{
+                            'targets': [2],
+                            'orderable': false,
+                        }]
+                    });
+
+                    $('#table-reports_previous a').text("");
+                    $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                    $('#table-reports_next a').text("");
+                    $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+
+                    $("#table-container").on("click", function () {
+                        $('#table-reports_previous a').text("");
+                        $('#table-reports_previous a').append('<i class="fa-solid fa-circle-chevron-left" style="color: #a39b9b;"></i>');
+                        $('#table-reports_next a').text("");
+                        $('#table-reports_next a').append('<i class="fa-solid fa-circle-chevron-right" style="color: #a39b9b;"></i>');
+                    });
+                }
+            });
+        }
+
+        function changePrice() {
+            val = parseInt(document.getElementById('price-input').value);
+            $.ajax({
+                url: "TicketSystem/ChangeCurrentPrice",
+                method: "GET",
+                data: {
+                    price: val
+                },
+                success: function (response) {
+                    $("#content").html(response);
+                }
+            });
+        }
+    </script>
+}

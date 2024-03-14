@@ -1,0 +1,28 @@
+﻿
+<div id="title-reports">Monthly Reports</div>
+
+<div id="number-container">
+    <input id="number-input" type="number" min="1900" max="2099" step="1" value="@ViewBag.CurrentYear" />
+</div>
+
+<div id="number-buttons-container">
+    <div id="number-buttons--inner-container">
+        <i id="up-button" onclick="increaseNumberInput()" class="fa-solid fa-play fa-rotate-270" style="color: rgb(24,12,36);"></i>
+        <i id="down-button" onclick="decreaseNumberInput()" class="fa-solid fa-play fa-rotate-90" style="color: rgb(24,12,36);"></i>
+    </div>
+</div>
+
+    <div id="table-container">
+        <table id="table-reports" cellspacing="0">
+            <thead>
+                <tr>
+                    <td>Month</td>
+                    <td>Sum</td>
+                    <td>Group</td>
+                    <td>People</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>

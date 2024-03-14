@@ -1,0 +1,62 @@
+﻿@model TicketSystem.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<link href="~/Content/CSS/RegisterCSS.css" rel="stylesheet" />
+
+<div id="outer-container">
+    <main aria-labelledby="title">
+        <div id="left-section">
+
+
+            <h2 id="title">Register</h2>
+            <section id="RegisterForm">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div>
+                        <p>Username</p>
+                        <div>
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div>
+                        <p>Password</p>
+                        <div id="password-container">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            <i onclick="showPassword()" class="fa-regular fa-eye" id="passwordEye" style="color: #412d28;"></i>
+                            <i onclick="showPassword()" id="disableEye1" class="fa-regular fa-eye-slash" style="color: #412d28;"></i>
+                        </div>
+
+                    </div>
+                    <div>
+                        <p>Confirm password</p>
+                        <div id="confirmPassword-container">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            <i onclick="showConfirmPassword()" class="fa-regular fa-eye" id="confirmPasswordEye" style="color: #412d28;"></i>
+                            <i onclick="showConfirmPassword()" id="disableEye2" class="fa-regular fa-eye-slash" style="color: #412d28;"></i>
+                        </div>
+
+                    </div>
+                    @Html.HiddenFor(m => m.Email);
+                    <div id="button-container">
+
+                        <input type="submit" value="Register" class="btn btn-outline-dark" id="button" />
+
+                    </div>
+                }
+            </section>
+        </div>
+        <div id="right-section">
+
+        </div>
+    </main>
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script src="~/Scripts/ShowPassword.js"></script>
+    }

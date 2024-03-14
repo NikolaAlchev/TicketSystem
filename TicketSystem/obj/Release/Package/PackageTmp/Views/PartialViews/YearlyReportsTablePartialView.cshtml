@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TicketSystem.Models.YearlyReport>
+<table id="table-reports" cellspacing="0">
+    <thead>
+        <tr>
+            <td>Година</td>
+            <td>Сума</td>
+            <td>Група</td>
+            <td>Бр. на луѓе</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TicketSystem.Models.YearlyReport item in Model)
+        {
+            <tr>
+                <td>@item.Year </td>
+                <td>@Html.DisplayFor(modelItem => item.Sum) ден.</td>
+                <td>@Html.DisplayFor(modelItem => item.NumOfGroups)</td>
+                <td>@Html.DisplayFor(modelItem => item.NumOfPeople)</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

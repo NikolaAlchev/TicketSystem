@@ -1,0 +1,28 @@
+﻿
+@model IEnumerable<TicketSystem.Models.MonthlyReport>
+@{ 
+    List<string> monthNames = new List<string>(){
+"Јануари","Февруари","Март","Април","Мај","Јуни","Јули","Август","Септември","Октомври","Ноември","Декември"};
+}
+<table id="table-reports" cellspacing="0">
+    <thead>
+        <tr>
+            <td>Месец</td>
+            <td>Сума</td>
+            <td>Група</td>
+            <td>Бр. на луѓе</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TicketSystem.Models.MonthlyReport item in Model)
+        {
+            <tr>
+                <td>@monthNames.ElementAt(item.Month-1) </td>
+                <td>@Html.DisplayFor(modelItem => item.Sum) ден.</td>
+                <td>@Html.DisplayFor(modelItem => item.NumOfGroups)</td>
+                <td>@Html.DisplayFor(modelItem => item.NumOfPeople)</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

@@ -1,0 +1,497 @@
+﻿#outer-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    color: rgb(24,12,36);
+    font-family: 'Montserrat', sans-serif;
+}
+
+#middle-content {
+    width: 55%;
+    height: 70%;
+    box-shadow: black 0 0 70px;
+    background-color: rgba(253,254,253,0.9);
+    position: relative;
+}
+
+#content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    position: relative;
+}
+
+#title {
+    width: 100%;
+    height: 70px;
+    font-weight: 800;
+    font-size: 45px;
+    text-align: center;
+    position: absolute;
+    top: 75px;
+}
+
+#buttons-container {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    height: 50%;
+    display: flex;
+}
+
+    #buttons-container p {
+        width: 70%;
+        text-align: center;
+    }
+
+#left-side, #right-side {
+    width: 50%;
+    display: grid;
+    place-items: center;
+}
+
+#add-user-button, #manage-user-button {
+    width: 280px;
+    height: 280px;
+    
+    background-color: white;
+    box-shadow: 0 0 10px black;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    font-weight: 500;
+    transition: 0.33s ease;
+}
+
+#content i {
+    margin-top: 30px;
+}
+
+#add-user-button {
+    margin-left: 120px;
+}
+
+#manage-user-button {
+    margin-right: 120px;
+}
+
+#add-user-button i, #manage-user-button i {
+    color: rgb(24,12,36);
+}
+
+    #add-user-button:hover, #manage-user-button:hover {
+        width: 300px;
+        height: 300px;
+        font-size: 26px;
+        color: white;
+        background-color: rgba(25,158,178,255);
+    }
+    #add-user-button:hover i , #manage-user-button:hover i{
+        color: white;
+    }
+
+#users-container, #reports-container, #daily-container, #monthly-container, #yearly-container, #price-container {
+    box-shadow: 0 0 35px rgba(0,0,0,0.8);
+    -webkit-clip-path: inset(-35px 0px -35px -35px);
+    clip-path: inset(-50px 0px -50px -50px);
+    position: absolute;
+    font-weight: 600;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 20px;
+}
+
+#users-container, #reports-container {
+    height: 70px;
+    font-size: 25px;
+    width: 200px;
+    left: -200px;
+    transition: 0.25s ease;
+}
+
+#users-container {
+    top: 25%;
+    background-color: rgba(255,255,255,0.9);
+}
+
+#reports-container {
+    top: 50%;
+    background-color: rgba(200,200,200,0.9);
+}
+
+    #users-container:hover, #reports-container:hover {
+        width: 220px;
+        left: -220px;
+    }
+
+#logo-2 {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 70px;
+}
+
+#daily-container, #monthly-container, #yearly-container, #price-container {
+    height: 55px;
+    font-size: 22px;
+    width: 150px;
+    left: -150px;
+    background-color: rgba(255,255,255,0.9);
+    transition: 0.33s ease;
+}
+
+    #daily-container:hover, #monthly-container:hover, #yearly-container:hover, #price-container:hover {
+        width: 180px;
+        left: -180px;
+        background-color: rgba(255,255,255,1);
+    }
+
+#daily-container {
+    top: 42%;
+}
+
+#monthly-container {
+    top: 55%;
+}
+
+#yearly-container {
+    top: 68%;
+}
+
+#price-container {
+    top: 81%;
+}
+
+.disappear {
+    width: 0px !important;
+    padding: 0px !important;
+    left: 0 !important;
+}
+
+#price-outer-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+#price-title {
+    font-weight: 800;
+    font-size: 38px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#price-partial-container {
+    background-color: white;
+    box-shadow: 0 0 20px black;
+    width: 60%;
+    height: 40%;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+}
+
+#price-input {
+    height: 50px;
+    font-size: 26px;
+    text-align: center;
+    background-color: rgb(24,12,36);
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+    #price-input:focus {
+        outline: none !important;
+        border: none;
+        box-shadow: none;
+        background-color: rgba(25,157,177,0.7);
+    }
+
+#price-button {
+    background-color: rgb(24,12,36);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 25px;
+    border: none;
+    padding: 0 30px;
+    height: 50px;
+    border-radius: 10px;
+    transition: ease 0.35s;
+}
+
+    #price-button:hover {
+        background-color: rgba(25,157,177,255);
+    }
+
+@media (max-width: 1600px) {
+    #add-user-button, #manage-user-button {
+        width: 230px;
+        height: 230px;
+        font-size: 18px;
+    }
+
+        #add-user-button:hover, #manage-user-button:hover {
+            width: 250px;
+            height: 250px;
+            font-size: 22px;
+        }
+
+    #title {
+        font-size: 40px;
+        top: 50px;
+    }
+
+    #add-user-button {
+        margin-left: 100px;
+    }
+
+    #manage-user-button {
+        margin-right: 100px;
+    }
+
+    #logo-2 {
+        width: 60px;
+    }
+
+    #users-container, #reports-container {
+        height: 60px;
+        font-size: 22px;
+    }
+
+    #daily-container, #monthly-container, #yearly-container, #price-container {
+        height: 52px;
+        font-size: 20px;
+    }
+
+    #daily-container {
+        top: 40%;
+    }
+
+    #monthly-container {
+        top: 54%;
+    }
+
+    #yearly-container {
+        top: 68%;
+    }
+
+    #price-container {
+        top: 82%;
+    }
+
+    table {
+        font-size: 17px !important;
+    }
+
+    #table-container {
+        margin-top: 90px !important;
+    }
+
+    #title-reports {
+        font-size: 38px !important;
+    }
+
+    .pagination {
+        top: 97px !important;
+    }
+
+    #price-title {
+        font-size: 35px;
+        margin-bottom: 30px;
+    }
+
+    #price-partial-container {
+        width: 65%;
+    }
+
+    #price-input {
+        font-size: 22px;
+    }
+
+    #price-button {
+        font-size: 22px;
+    }
+}
+
+#title-reports {
+    position: absolute;
+    font-size: 42px;
+    font-weight: 800;
+    top: 25px;
+    left: 50px;
+}
+
+#date-container {
+    position: absolute;
+    display: flex;
+    right: 20px;
+    top: 33px;
+    font-size: 35px;
+}
+
+.datepicker-toggle {
+    display: inline-block;
+    position: relative;
+    width: 18px;
+    height: 19px;
+}
+
+.datepicker-toggle-button {
+    position: absolute;
+    left: -20px;
+    top: -30px;
+    width: 100%;
+    height: 100%;
+}
+
+.datepicker-input {
+    position: absolute;
+    left: -20px;
+    top: 0;
+    width: 31px;
+    height: 35px;
+    opacity: 0;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: none;
+}
+
+    .datepicker-input::-webkit-calendar-picker-indicator {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+
+#selected-date {
+    font-size: 26px;
+    font-weight: 600;
+    margin-right: 35px;
+    margin-top: 2px;
+}
+
+#table-container {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 120px;
+    margin-top: 110px;
+}
+
+#table-reports {
+    font-size: 24px;
+    font-weight: 600;
+    min-width: 100%;
+}
+
+#table-reports_filter, #table-reports_length, #table-reports_info {
+    display: none;
+}
+
+td {
+    text-align: center;
+    padding: 10px 10px;
+}
+
+tbody td {
+    border-right: 3px solid gray
+}
+
+thead td:nth-child(4) {
+    border-right: 3px solid gray;
+}
+
+thead td {
+    border-bottom: 3px solid gray;
+}
+
+tbody td:nth-child(4) {
+    border-right: none;
+}
+
+
+tbody tr:first-child td:nth-child(4) {
+    border-right: 3px solid gray;
+}
+
+.pagination li:not(:first-child):not(:last-child) {
+    display: none;
+}
+
+.pagination {
+    position: absolute;
+    top: 128px;
+    right: 25px;
+    font-size: 30px;
+    transition: 0.33s ease;
+}
+
+    .pagination i {
+        margin-right: 5px;
+    }
+
+#number-container {
+    position: absolute;
+    right: 45px;
+    top: 30px;
+    display: flex;
+}
+
+#number-input {
+    background-color: transparent;
+    border: none;
+    font-size: 28px;
+    color: rgb(24,12,36);
+    font-weight: 600;
+    text-align: right;
+}
+
+    #number-input:focus {
+        outline: none;
+    }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+#number-buttons-container {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    height: 42px;
+}
+
+#number-buttons--inner-container {
+    position: relative;
+}
+
+#up-button {
+    position: absolute;
+    top: 5px;
+    right: 25%;
+    margin: 0 !important;
+}
+
+#down-button {
+    position: absolute;
+    top: 25px;
+    right: 25%;
+    margin: 0 !important;
+}
+
+    #up-button:hover, #down-button:hover {
+        cursor: pointer;
+    }
