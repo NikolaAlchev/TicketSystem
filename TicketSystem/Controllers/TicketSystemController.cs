@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Drawing;
-using System.Drawing.Printing;
-using System.IO;
 using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using TicketSystem.Models;
+
+using System.IO.Ports;
+using Zebra.Sdk.Comm;
+using Zebra.Sdk.Printer;
+using Zebra.Sdk.Printer.Discovery;
 
 namespace TicketSystem.Controllers
 {
@@ -145,7 +143,8 @@ namespace TicketSystem.Controllers
             }
             if (!model.Group)
             {
-                for (int i = 0; i < model.NumOfPeople; i++) {
+                for (int i = 0; i < model.NumOfPeople; i++)
+                {
                     string[] lines = System.IO.File.ReadAllLines(Session["File"].ToString());
                     Ticket ticket = new Ticket();
                     ticket.Group = false;
@@ -169,10 +168,13 @@ namespace TicketSystem.Controllers
                         System.IO.File.WriteAllLines(Session["File"].ToString(), lines);
                         _context.Database.ExecuteSqlCommand("TRUNCATE TABLE [DailyTickets]");
                     }
-                    if (monthlyReportExists){
+                    if (monthlyReportExists)
+                    {
                         mr.Sum += ticket.Price;
                         mr.NumOfPeople += ticket.NumOfPeople;
-                    }else{
+                    }
+                    else
+                    {
                         newMr.Sum += ticket.Price;
                         newMr.NumOfPeople += ticket.NumOfPeople;
                     }
@@ -189,6 +191,8 @@ namespace TicketSystem.Controllers
                     _context.DailyTickets.Add(DailyTicket.convertToDailyTicket(ticket));
                     _context.Tickets.Add(ticket);
                     _context.SaveChanges();
+
+                    PrintTicket(ticket);
                 }
             }
             else
@@ -241,6 +245,8 @@ namespace TicketSystem.Controllers
 
                 _context.DailyTickets.Add(DailyTicket.convertToDailyTicket(model));
                 _context.Tickets.Add(model);
+
+                PrintTicket(model);
             }
 
             if (!monthlyReportExists)
@@ -254,36 +260,87 @@ namespace TicketSystem.Controllers
 
             _context.SaveChanges();
 
-            //////////////////////////////////////////
-            // Replace with your printer's IP address and port number
-            /*string printerIpAddress = "192.168.1.100";
-            int printerPort = 9100;
+            return RedirectToAction("Index");
+        }
 
-            try
+        void PrintTicket(Ticket ticket)
+        {
+            DiscoveredPrinter[] printers = UsbDiscoverer.GetZebraUsbPrinters().ToArray();
+
+            if (printers.Length > 0)
             {
-                // Create a socket connection to the printer
-                using (TcpClient client = new TcpClient(printerIpAddress, printerPort))
+                try
                 {
-                    using (NetworkStream stream = client.GetStream())
+                    DiscoveredPrinter printer = printers[0];
+
+                    Connection connection = new UsbConnection(printer.Address);
+
+                    connection.Open();
+
+                    ZebraPrinter zebraPrinter = ZebraPrinterFactory.GetInstance(connection);
+
+                    string zplCommand = "^XA" +
+
+                        "^FO170,100" +
+                        "^A0R,20,25" +
+                        "^FD" + ticket.Code.ToString() + "^FS" +
+
+                        "^FO290,235" +
+                        "^A0R,28,35" +
+                        "^FD" + (ticket.Price / ticket.NumOfPeople).ToString() + "^FS" +
+
+                        "^FO231,190" +
+                        "^A0R,20,25" +
+                        "^FD" + ticket.NumOfPeople.ToString() + "^FS" +
+
+                        "^FO231,415" +
+                        "^A0R,20,25" +
+                        "^FD" + ticket.Price.ToString() + "^FS" +
+
+                        "^FO201,235" +
+                        "^A0R,20,25" +
+                        "^FD" + ticket.DateOfCreation.ToString("dddd, dd MMMM yyyy HH:mm:ss") + "^FS" +
+
+                        "^FO345,860" +
+                        "^A0N,15,17" +
+                        "^FD" + ticket.Price.ToString() + "^FS" +
+
+                        "^FO220,883" +
+                        "^A0N,15,17" +
+                        "^FD" + ticket.DateOfCreation.ToString("dd.MM.yyyy HH:mm") + "^FS" +
+
+                        "^FO185,860" +
+                        "^A0N,15,17" +
+                        "^FD" + ticket.NumOfPeople.ToString() + "^FS" +
+
+                        "^FO110,906" +
+                        "^A0,15,17" +
+                        "^FD" + ticket.Code.ToString() + "^FS" +
+
+                        "^XZ";
+                    zebraPrinter.SendCommand(zplCommand);
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine($"Stack trace: {ex.StackTrace}");
+
+                    Exception innerException = ex.InnerException;
+                    while (innerException != null)
                     {
-                        // Create a ZPL command to print "Hello, World!"
-                        string zplCommand = "^XA^FO20,20^A0N,30,30^FDHello, World!^FS^XZ";
-
-                        // Convert the ZPL command to bytes
-                        byte[] zplBytes = Encoding.ASCII.GetBytes(zplCommand);
-
-                        // Send the ZPL command to the printer
-                        stream.Write(zplBytes, 0, zplBytes.Length);
+                        Console.WriteLine($"Inner exception: {innerException.Message}");
+                        Console.WriteLine($"Inner exception stack trace: {innerException.StackTrace}");
+                        innerException = innerException.InnerException;
                     }
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Error: {ex.Message}");
-            }*/
-            //////////////////////////////////////////
-            
-            return RedirectToAction("Index");
+                Console.WriteLine("No Zebra printers found on the network.");
+            }
+
         }
 
 
